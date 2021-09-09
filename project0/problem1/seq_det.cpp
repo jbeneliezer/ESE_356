@@ -2,13 +2,23 @@
 
 void seq_det::prc_seq_det()
 {
-  	fourth = third;
+	fourth = third;
 	third = second;
-  	second = first;
-  	first = data;
+	second = first;
+	first = data_in;
 }
 
 void seq_det::prc_output()
 {
-  	seq_found = first & (!second) & third & fourth;
+  	data_out = first & (!second) & third & fourth;
+}
+
+void seq_det::prc_clear()
+{
+	data_out = false;
+}
+
+void seq_det::prc_reset()
+{
+	first = second = third = fourth = false;
 }

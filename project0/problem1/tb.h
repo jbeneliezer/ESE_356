@@ -2,9 +2,10 @@
 
 SC_MODULE(tb)
 {
-	sc_out<bool> clk, rst;
-	sc_out<bool> data_tb;
-	sc_in<bool> seq_found_tb;
+	sc_in<bool> clk;
+	sc_out<bool> rst, clr;
+	sc_out<bool> data_in;
+	sc_in<bool> data_out;
 
 	void source();
 	void sink();

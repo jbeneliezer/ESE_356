@@ -2,24 +2,29 @@
 
 SC_MODULE(seq_det)
 {
-  	sc_in<bool> clock, data;
-	sc_out<bool> seq_found;
+  	sc_in<bool> clk, rst, clr, data_in;
+	sc_out<bool> data_out;
 
   	void prc_seq_det();
   	void prc_output();
+	void prc_clear();
+	void prc_reset();
   	sc_signal<bool> first, second, third, fourth;
 
   	SC_CTOR(seq_det)
   	{
     	SC_METHOD(prc_seq_det)
     	{
-			sensitive_pos << clock;
+			sensitive << clk.pos();
     	}
 
     	SC_METHOD(prc_output)
     	{
-    		sensitive_pos << first << second << third << fourth;
+    		sensitive << first << second << third << fourth;
     	}
+
+		SC_CTHREAD(prc_clear, clr.pos());
+		SC_CTHREAD(prc_reset, rst.neg());
 
   	}
 };
