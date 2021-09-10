@@ -50,7 +50,7 @@ int sc_main(int argc, char* argv[])
   	sc_trace(tfile, top->reset_sig, "rst");
   	sc_trace(tfile, top->clear_sig, "clr");
 
-  	sc_start();
+  	sc_start(1280, SC_NS);
 
    	sc_close_vcd_trace_file(tfile);
 

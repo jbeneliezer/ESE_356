@@ -10,7 +10,7 @@ void seq_det::prc_seq_det()
 
 void seq_det::prc_output()
 {
-  	data_out = first & (!second) & third & fourth;
+  	data_out = data_in & third & (!second) & first;
 }
 
 void seq_det::prc_clear()

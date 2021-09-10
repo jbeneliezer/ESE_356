@@ -20,7 +20,7 @@ SC_MODULE(seq_det)
 
     	SC_METHOD(prc_output)
     	{
-    		sensitive << first << second << third << fourth;
+    		sensitive << clk.pos() << first << second << third << fourth;
     	}
 
 		SC_CTHREAD(prc_clear, clr.pos());

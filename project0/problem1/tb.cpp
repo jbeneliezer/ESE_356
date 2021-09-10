@@ -28,7 +28,6 @@ void tb::sink()
 	for (int i = 0; i < 64; ++i)
 	{
 		tmp = data_out;
-		cout << i << ":\t" << tmp << endl;
 		wait();
 	}
 
