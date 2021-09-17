@@ -42,7 +42,7 @@ int sc_main(int argc, char* argv[])
 {
 	top = new SYSTEM("top");
 
- 	sc_trace_file *tfile = sc_create_vcd_trace_file("myvcdfile");
+ 	sc_trace_file *tfile = sc_create_vcd_trace_file("p1");
 
   	sc_trace(tfile, top->data_in_sig, "data_in");
   	sc_trace(tfile, top->data_out_sig, "data_out");
