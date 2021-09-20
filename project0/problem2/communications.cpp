@@ -1,35 +1,30 @@
 #include "communications.h"
 
-void seq_det::prc_recv()
+void communications::prc_recv()
 {
-	header = inData[11:8]
-	data = inData[7:4]
-	parity = inData[0]
-	if (header == 1)
+	bool parity = inData[0];
+	if (inData.read().range(11, 8) == 1)
 	{
-		payload = data;
-		++count;
+		payload.write(inData.read().range(7, 4));
+		count.write(count.read() + 1);
 	}
-}
-
-void seq_det::prc_parity_check()
-{
-    for (sc_uint<3> i = 0; i < 4; ++i)
+    for (sc_uint<4> i = 7; i > 3; --i)
 	{
-		parity ^= data[i];
+		parity = parity ^ inData.read()[i];
 	}
 	if (!parity)
 	{
-		++error;
+		error.write(error.read() + 1);
 	}
 }
 
-void seq_det::prc_clear()
+void communications::prc_clear()
 {
-	data_out = false;
+	payload.write(0);
 }
 
-void seq_det::prc_reset()
+void communications::prc_reset()
 {
-	first = second = third = fourth = false;
+	count.write(0);
+	error.write(0);
 }

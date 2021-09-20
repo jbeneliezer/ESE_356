@@ -2,30 +2,26 @@
 
 SC_MODULE(communications)
 {
-  	sc_in<bool> clock, reset, clear;
-	sc_out<bool> data_out;
-	sc_in<uint<12> > inData;
+  	sc_in<bool> clk, rst, clr;
+	sc_in<sc_uint<12> > inData;
+	sc_out<sc_uint<4> > payload;
+	sc_out<sc_uint<8> > count;
+	sc_out<sc_uint<8> > error;
 
-  	void prc_seq_det();
-  	void prc_output();
+	void prc_recv();
 	void prc_clear();
 	void prc_reset();
-  	sc_signal<bool> fireset, second, third, fourth;
+	sc_signal<bool> parity;
 
   	SC_CTOR(communications)
   	{
-    	SC_METHOD(prc_seq_det)
+    	SC_METHOD(prc_recv)
     	{
-			sensitive << clock.pos();
+			sensitive << clk.pos();
     	}
 
-    	SC_METHOD(prc_output)
-    	{
-    		sensitive << fireset << second << third << fourth;
-    	}
-
-		SC_CTHREAD(prc_clear, clear.pos());
-		SC_CTHREAD(prc_reset, reset.neg());
+		SC_CTHREAD(prc_clear, clr.pos());
+		SC_CTHREAD(prc_reset, rst.neg());
 
   	}
 };
